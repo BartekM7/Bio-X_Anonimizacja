@@ -1,6 +1,8 @@
 import pydicom as pm
 from pydicom.errors import InvalidDicomError
 import os
+from pydicom import uid
+import uuid
 
 def check_if_dicom_is_correct(dicom_file_path):
     dicom_file_path = os.path.abspath(dicom_file_path)
@@ -16,29 +18,25 @@ def check_if_dicom_is_correct(dicom_file_path):
         raise ValueError(f"An unexpected error occurred while reading the DICOM file: {e}")
 
 
-def anonymize_dicom(dicom_input_file, output_file_path, patient_name=None, patient_id=None, patient_birth_date=None, patient_sex=None, patient_age=None):
-    #PatientName -> string
-    #PatientID -> string
-    # PatientBirthDate -> zapis daty "YYYYMMDD"
-    # PatientSex -> "M" lub "F" inne dane daja "Other"
-    # PatientAge -> zapis '000Y', gdzie 000 odpowiada wiekowi a litera jednostke np. '068Y' = 68 years
+def anonymize_dicom(dicom_input_file, output_file_path, patient_name="Anonymous", patient_id=None, patient_birth_date="20200202"):
+    #PatientName -> string; jesli nie wpiszesz to bedzie "Anonymous"
+    #PatientID -> string; jesli nie wpiszesz generuje losowy numer
+    # PatientBirthDate -> zapis daty "YYYYMMDD"; jesli nie wpiszesz to bedzie "20200202"
 
     check_if_dicom_is_correct(dicom_input_file)
 
     ds = pm.dcmread(dicom_input_file)
 
-    if patient_name is not None:
-        ds.PatientName = patient_name
+    ds.PatientName = patient_name
+    ds.PatientBirthDate = patient_birth_date
+
     if patient_id is not None:
         ds.PatientID = patient_id
-    if patient_birth_date is not None:
-        ds.PatientBirthDate = patient_birth_date
-    if patient_sex is not None:
-        ds.PatientSex = patient_sex
-    if patient_age is not None:
-        ds.PatientAge = patient_age
+    else:
+        ds.PatientID= str(uuid.uuid4())
+
+    ds.StudyInstanceUID = pm.uid.generate_uid()
 
     ds.save_as(output_file_path)
 
     #print(f"Anonymized DICOM file saved as: {output_file_path}")
-    #print(ds)

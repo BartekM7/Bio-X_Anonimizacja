@@ -10,14 +10,12 @@ class TestDICOMAnonymization(TestCase):
         new_filename = r"files_for_tests\2\1\Test"
         try:
             anonymize_dicom(test_filename, new_filename,
-                                               "A", "A", "20200202", "M", '068Y')
+                                               "Anonymous", "11111", "20200203")
             ds_anon = pm.dcmread(new_filename)
 
-            self.assertEqual("A", ds_anon.PatientName)
-            self.assertEqual("A", ds_anon.PatientID )
-            self.assertEqual("20200202", ds_anon.PatientBirthDate)
-            self.assertEqual("M", ds_anon.PatientSex)
-            self.assertEqual('068Y', ds_anon.PatientAge)
+            self.assertEqual("Anonymous", ds_anon.PatientName)
+            self.assertEqual("11111", ds_anon.PatientID )
+            self.assertEqual("20200203", ds_anon.PatientBirthDate)
 
         finally:
             os.remove(new_filename)
@@ -43,10 +41,6 @@ class TestDICOMAnonymization(TestCase):
             ds_anon = pm.dcmread(new_filename)
 
             self.assertEqual("Anonymous", ds_anon.PatientName)
-            self.assertEqual("90012514477", ds_anon.PatientID)
-            self.assertEqual("19700101", ds_anon.PatientBirthDate)
-            self.assertEqual("M", ds_anon.PatientSex)
-            self.assertEqual('032Y', ds_anon.PatientAge)
+            self.assertEqual("20200202", ds_anon.PatientBirthDate)
         finally:
             os.remove(new_filename)
-
