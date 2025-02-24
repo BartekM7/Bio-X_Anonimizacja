@@ -16,7 +16,7 @@ def check_if_dicom_is_correct(dicom_file_path):
         raise ValueError(f"An unexpected error occurred while reading the DICOM file: {e}")
 
 
-def anonymize_dicom(dicom_input_file, new_file_name, patient_name=None, patient_id=None, patient_birth_date=None, patient_sex=None, patient_age=None):
+def anonymize_dicom(dicom_input_file, output_file_path, patient_name=None, patient_id=None, patient_birth_date=None, patient_sex=None, patient_age=None):
     #PatientName -> string
     #PatientID -> string
     # PatientBirthDate -> zapis daty "YYYYMMDD"
@@ -24,8 +24,6 @@ def anonymize_dicom(dicom_input_file, new_file_name, patient_name=None, patient_
     # PatientAge -> zapis '000Y', gdzie 000 odpowiada wiekowi a litera jednostke np. '068Y' = 68 years
 
     check_if_dicom_is_correct(dicom_input_file)
-
-    output_file_path = os.path.join(os.path.dirname(dicom_input_file), new_file_name)
 
     ds = pm.dcmread(dicom_input_file)
 
@@ -42,7 +40,5 @@ def anonymize_dicom(dicom_input_file, new_file_name, patient_name=None, patient_
 
     ds.save_as(output_file_path)
 
-    print(f"Anonymized DICOM file saved as: {output_file_path}")
+    #print(f"Anonymized DICOM file saved as: {output_file_path}")
     #print(ds)
-
-    return output_file_path
