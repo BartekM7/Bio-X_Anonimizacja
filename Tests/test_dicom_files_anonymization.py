@@ -1,6 +1,6 @@
 from unittest import TestCase
 import pydicom as pm
-from dicom_files_anonymization import anonymize_dicom
+from Main.File_anonymization.dicom_files_anonymization import anonymize_dicom
 import os
 
 class TestDICOMAnonymization(TestCase):
