@@ -59,7 +59,7 @@ with dpg.window(label="Błąd", modal=True, show=False, tag="error_modal", no_ti
     dpg.add_text("Wybierz plik i folder.")
     error_button = dpg.add_button(label="OK", width=75, callback=lambda: dpg.configure_item("error_modal", show=False))
 
-with dpg.window(label="Sukces", modal = True, show=False, tag="success_modal", no_title_bar=True, width=300, height=30):
+with dpg.window(label="Sukces", modal = True, show=False, tag="success_modal", no_title_bar=True, width=350, height=30):
     dpg.add_text("Zanonimizowany plik znajduje się pod adresem:\n")
     dpg.add_text("", tag="success_text")
     success_button = dpg.add_button(label="OK", width=75, callback=lambda: dpg.configure_item("success_modal", show=False))
