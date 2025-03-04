@@ -1,5 +1,5 @@
 import dearpygui.dearpygui as dpg
-from callbacks import start_callback
+from TestName.callbacks import start_callback
 
 def main_window():
     with dpg.window(label="Anonimizacja", width=700, height=400,no_title_bar=True):
@@ -18,7 +18,7 @@ def main_window():
         dpg.add_button(label="Start", callback=start_callback)
 
 def error_window():
-    with dpg.window(label="Błąd", modal=True, show=False, tag="error_modal", no_title_bar=True, width=175, height=30,):
+    with dpg.window(label="Błąd", modal=True, show=False, tag="error_modal", no_title_bar=True, width=200, height=10,):
         dpg.add_text("Wybierz plik i folder.")
         error_button = dpg.add_button(label="OK", width=75, callback=lambda: dpg.configure_item("error_modal", show=False))
 

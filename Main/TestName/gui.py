@@ -1,18 +1,13 @@
 import dearpygui.dearpygui as dpg
+from TestName.windows import main_window, error_window, success_window
+from TestName.dialogues import input_dialogue, output_dialogue
 
-from dialogues import input_dialogue, output_dialogue
-from callbacks import  start_callback
-from windows import main_window, error_window, success_window
-
-def gui():
-    start_callback()
-
+def gui_setup():
     dpg.create_context()
 
     main_window()
     input_dialogue()
     output_dialogue()
-
     error_window()
     success_window()
 

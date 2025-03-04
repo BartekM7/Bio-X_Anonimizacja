@@ -1,8 +1,8 @@
-from GUI.gui import gui
+from TestName.gui import gui_setup
 
 def main():
 
-    gui()
+    gui_setup()
 
 if __name__ == "__main__":
     main()
