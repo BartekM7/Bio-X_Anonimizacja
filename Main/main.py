@@ -1,8 +1,4 @@
-from TestName.gui import gui_setup
-
-def main():
-
-    gui_setup()
+from pyqt5GUI.gui import start_gui
 
 if __name__ == "__main__":
-    main()
+    start_gui()
