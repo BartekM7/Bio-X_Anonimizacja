@@ -1,5 +1,3 @@
-from xml.etree.ElementTree import tostring
-
 from PyQt5.QtWidgets import QPushButton, QWidget, QLabel, QFileDialog, QCheckBox
 
 class App(QWidget):
@@ -53,21 +51,6 @@ class App(QWidget):
         #shows all
         self.show()
 
-    #dialog for input button
-    def on_button_select_input_path_click(self):
-        if self.directory:
-            file_name = QFileDialog.getExistingDirectory(self, "Select Directory")
-        else:
-            file_name, _ = QFileDialog.getOpenFileNames(self, "Select File", "", "All Files (*)")
-
-        if file_name:
-            self.selected_input_path = file_name[0] if isinstance(file_name, list) else file_name
-            self.label_input_path.setText(f"Selected file: {self.selected_input_path}")
-            self.label_input_path.adjustSize()
-        else:
-            self.label_input_path.setText("No file selected")
-            self.label_input_path.adjustSize()
-
     #dialog for output button
     def on_button_select_output_filepath_click(self):
         if self.directory:
@@ -82,6 +65,21 @@ class App(QWidget):
         else:
             self.label_output_path.setText("No file selected")
             self.label_output_path.adjustSize()
+
+    # dialog for input button
+    def on_button_select_input_path_click(self):
+        if self.directory:
+            file_name = QFileDialog.getExistingDirectory(self, "Select Directory")
+        else:
+            file_name, _ = QFileDialog.getOpenFileNames(self, "Select File", "", "All Files (*)")
+
+        if file_name:
+            self.selected_input_path = file_name[0] if isinstance(file_name, list) else file_name
+            self.label_input_path.setText(f"Selected file: {self.selected_input_path}")
+            self.label_input_path.adjustSize()
+        else:
+            self.label_input_path.setText("No file selected")
+            self.label_input_path.adjustSize()
 
     #button for future use space for function
     def on_button_future_use_function(self):
