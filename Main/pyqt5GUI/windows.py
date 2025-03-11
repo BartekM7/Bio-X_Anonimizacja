@@ -1,6 +1,9 @@
 from PyQt5.QtWidgets import QPushButton, QWidget, QLabel, QFileDialog, QCheckBox
 from PyQt5.QtGui import QIcon
 
+from File_anonymization.dicom_files_anonymization import anonymize_dicom_directory, anonymize_single_dicom_file_and_save
+
+
 class App(QWidget):
     def __init__(self):
         super().__init__()
@@ -86,6 +89,10 @@ class App(QWidget):
 
     #button for future use space for function
     def on_button_future_use_function(self):
+        if self.directory:
+            anonymize_dicom_directory(self.selected_input_path, self.selected_output_path)
+        else:
+            anonymize_single_dicom_file_and_save(self.selected_input_path, self.selected_output_path)
         #put future function here
         # function_name(self.selected_input_path, self.selected_output_path , self.directory)
         ################        string                     string               bool

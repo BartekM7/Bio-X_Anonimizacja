@@ -10,7 +10,7 @@ import csv
 from pathlib import Path
 
 
-with open("profil_anonimizacji.csv", "r") as infile:
+with open("../profil_anonimizacji.csv", "r") as infile:
     reader = csv.reader(infile, delimiter=";")
     profile = {tuple(int(x.strip("()"), 16) for x in rows[1].split(',')): rows[2] for rows in reader}
 
@@ -107,6 +107,10 @@ def anonymize_single_dicom_file(dicom_input_file):
 
     #print(f"Anonymized DICOM file saved as: {output_file_path}")
 
+def anonymize_single_dicom_file_and_save(dicom_input_file, dicom_output_file):
+    ds, _, _, _, _ = anonymize_single_dicom_file(dicom_input_file)
+    save_dicom_file(ds, dicom_output_file)
+
 def save_dicom_file(dcm, output_file_path, name_suffix=0):
     normalized_path = str(os.path.normpath(output_file_path)) + '/' + str(dcm.PatientName) + '.'
 
@@ -158,6 +162,3 @@ def anonymize_dicom_directory(dicom_input_directory, output_directory):
     pprint(dictionary)
 
 
-
-if __name__ == "__main__":
-    anonymize_dicom_directory("/home/ratattwg/testing_dicom/2", "/home/ratattwg/testing_dicom/")
