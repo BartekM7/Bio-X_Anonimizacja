@@ -1,5 +1,8 @@
-from PyQt5.QtWidgets import QPushButton, QWidget, QLabel, QFileDialog, QCheckBox
+from PyQt5.QtWidgets import QPushButton, QWidget, QLabel, QFileDialog, QCheckBox, QApplication
 from PyQt5.QtGui import QIcon
+import sys
+from PyQt5.QtGui import QScreen
+from PyQt5.QtGui import QFont
 
 from File_anonymization.dicom_files_anonymization import anonymize_dicom_directory, anonymize_single_dicom_file_and_save
 
@@ -9,15 +12,27 @@ class App(QWidget):
         super().__init__()
         self.title = "Anonimizacja plików DCM"
         self.setWindowIcon(QIcon("/Main/pyqt5GUI/Assets/ikonka_testowa.png"))
-        self.left = 50
-        self.top = 50
-        self.width = 500
-        self.height = 200
+
+        screen = QApplication.primaryScreen()
+        screen_size = screen.size()
+        self.screen_width = screen_size.width()
+        self.screen_height = screen_size.height()
+
+        system_font = QApplication.font()
+        font_size = int(self.screen_height * 0.0155)
+        font = QFont(system_font.family(), font_size)
+
+        self.setFont(font)
+
+        self.width = int(self.screen_width * 0.4)
+        self.height = int(self.screen_height * 0.23)
+        self.left = int(self.screen_width * 0.05)
+        self.top = int(self.screen_height * 0.05)
+
         self.main_window()
         self.directory = False
         self.selected_input_path = " "
         self.selected_output_path = " "
-
 
     def main_window(self):
         #First thing first
@@ -27,31 +42,31 @@ class App(QWidget):
         # label for select in_file path
         self.label_input_path = QLabel("Input File Path", self)
         self.label_input_path.adjustSize()
-        self.label_input_path.move(20, 10)
+        self.label_input_path.move(int(self.width * 0.03), int(self.height * 0.05))
 
         #select in_file button
         self.button_select_input_path = QPushButton("Select Input File Path", self)
-        self.button_select_input_path.move(10, 30)
+        self.button_select_input_path.move(int(self.width * 0.018), int(self.height * 0.15))
         self.button_select_input_path.clicked.connect(self.on_button_select_input_path_click)
 
         # lebel for selected out_file path
         self.label_output_path = QLabel("Output File Path", self)
         self.label_output_path.adjustSize()
-        self.label_output_path.move(20, 70)
+        self.label_output_path.move(int(self.width * 0.03), int(self.height * 0.35))
 
         #select out_file button
         self.button_select_output_path = QPushButton("Select Output File Path", self)
-        self.button_select_output_path.move(10, 90)
+        self.button_select_output_path.move(int(self.width * 0.018), int(self.height * 0.45))
         self.button_select_output_path.clicked.connect(self.on_button_select_output_filepath_click)
 
         #check box for if files are in or out
         self.checkbox_directory = QCheckBox("dir", self)
-        self.checkbox_directory.setGeometry(20, 110, 100, 50)
+        self.checkbox_directory.setGeometry(int(self.width * 0.03), int(self.height * 0.65), int(self.width * 0.07), int(self.height * 0.07))
         self.checkbox_directory.stateChanged.connect(self.on_checkbox_click_directory)
 
         # button for future use
         self.button_future_use = QPushButton("Start", self)
-        self.button_future_use.move(10, 160)
+        self.button_future_use.move(int(self.width * 0.018), int(self.height * 0.8))
         self.button_future_use.clicked.connect(self.on_button_future_use_function)
 
         #shows all
