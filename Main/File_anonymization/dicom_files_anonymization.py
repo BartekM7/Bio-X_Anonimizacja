@@ -1,5 +1,4 @@
 import shutil
-import sys
 from pprint import pprint
 
 import pydicom as pm

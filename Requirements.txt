@@ -1,2 +1,0 @@
-pydicom~=3.0.1
-dearpygui~=2.0.0
