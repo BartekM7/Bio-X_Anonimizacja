@@ -19,7 +19,7 @@ class App(QWidget):
         self.screen_height = screen_size.height()
 
         system_font = QApplication.font()
-        font_size = int(self.screen_height * 0.0155)
+        font_size = int(self.screen_height * 0.006)
         font = QFont(system_font.family(), font_size)
 
         self.setFont(font)
