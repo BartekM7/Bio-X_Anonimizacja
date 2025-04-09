@@ -4,14 +4,18 @@ import sys
 from PyQt5.QtGui import QScreen
 from PyQt5.QtGui import QFont
 
+from pyqt5GUI.drag_a_drop import ListboxWidget
 from File_anonymization.dicom_files_anonymization import anonymize_dicom_directory, anonymize_single_dicom_file_and_save
-
 
 class App(QWidget):
     def __init__(self):
         super().__init__()
         self.title = "Anonimizacja plików DCM"
         self.setWindowIcon(QIcon("/Main/pyqt5GUI/Assets/ikonka_testowa.png"))
+
+        self.directory = False
+        self.selected_input_path = " "
+        self.selected_output_path = " "
 
         screen = QApplication.primaryScreen()
         screen_size = screen.size()
@@ -30,9 +34,6 @@ class App(QWidget):
         self.top = int(self.screen_height * 0.05)
 
         self.main_window()
-        self.directory = False
-        self.selected_input_path = " "
-        self.selected_output_path = " "
 
     def main_window(self):
         #First thing first
@@ -49,7 +50,7 @@ class App(QWidget):
         self.button_select_input_path.move(int(self.width * 0.018), int(self.height * 0.15))
         self.button_select_input_path.clicked.connect(self.on_button_select_input_path_click)
 
-        # lebel for selected out_file path
+        # label for selected out_file path
         self.label_output_path = QLabel("Output File Path", self)
         self.label_output_path.adjustSize()
         self.label_output_path.move(int(self.width * 0.03), int(self.height * 0.35))
@@ -68,6 +69,8 @@ class App(QWidget):
         self.button_future_use = QPushButton("Start", self)
         self.button_future_use.move(int(self.width * 0.018), int(self.height * 0.8))
         self.button_future_use.clicked.connect(self.on_button_future_use_function)
+
+        self.listbox_view = ListboxWidget(self)
 
         #shows all
         self.show()
@@ -105,8 +108,10 @@ class App(QWidget):
     #button for future use space for function
     def on_button_future_use_function(self):
         if self.directory:
+            print(self.selected_input_path + str(self.directory) + self.selected_output_path )
             anonymize_dicom_directory(self.selected_input_path, self.selected_output_path)
         else:
+            print(self.selected_input_path + str(self.directory) + self.selected_output_path )
             anonymize_single_dicom_file_and_save(self.selected_input_path, self.selected_output_path)
         #put future function here
         # function_name(self.selected_input_path, self.selected_output_path , self.directory)
