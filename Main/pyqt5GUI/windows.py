@@ -108,10 +108,10 @@ class App(QWidget):
     #button for future use space for function
     def on_button_future_use_function(self):
         if self.directory:
-            print(self.selected_input_path + str(self.directory) + self.selected_output_path )
+            #print(self.selected_input_path + str(self.directory) + self.selected_output_path )
             anonymize_dicom_directory(self.selected_input_path, self.selected_output_path)
         else:
-            print(self.selected_input_path + str(self.directory) + self.selected_output_path )
+            #print(self.selected_input_path + str(self.directory) + self.selected_output_path )
             anonymize_single_dicom_file_and_save(self.selected_input_path, self.selected_output_path)
         #put future function here
         # function_name(self.selected_input_path, self.selected_output_path , self.directory)
