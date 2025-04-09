@@ -77,10 +77,10 @@ class App(QWidget):
 
     #dialog for output button
     def on_button_select_output_filepath_click(self):
-        if self.directory:
-            file_name= QFileDialog.getExistingDirectory(self, "Select Directory")
-        else:
-            file_name, _ = QFileDialog.getOpenFileNames(self, "Select File", "", "All Files (*)")
+        #if self.directory:
+        file_name= QFileDialog.getExistingDirectory(self, "Select Directory")
+        #else:
+         #   file_name, _ = QFileDialog.getOpenFileNames(self, "Select File", "", "All Files (*)")
 
         if file_name:
             self.selected_output_path = file_name[0] if isinstance(file_name, list) else file_name
